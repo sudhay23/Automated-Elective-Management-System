@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import ControlBar from "../../../src/components/faculty/dashboard/ControlBar";
+import AddCourseModal from "../../../src/components/faculty/dashboard/AddCourseModal";
 import styles from "../../../styles/faculty/dashboard/Home.module.css";
 
 import { useState } from "react";
@@ -60,7 +61,11 @@ export default function Home() {
 				/>
 
 				{/* Add Course Modal component */}
-				{showAddCourse ? <h1>DEMO</h1> : ""}
+				{showAddCourse ? (
+					<AddCourseModal setShowAddCourse={setShowAddCourse} />
+				) : (
+					""
+				)}
 			</main>
 
 			<footer className={styles.footer}>

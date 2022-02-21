@@ -1,0 +1,21 @@
+.container {
+	z-index: 2;
+	background: rgba(0, 0, 0, 0.14);
+	backdrop-filter: blur(20px);
+	min-width: 100vw;
+	min-height: 100vh;
+	position: absolute;
+	top: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.3s;
+}
+
+.addCourseForm {
+	min-height: 70vh;
+	min-width: 40vw;
+	border-radius: 40px;
+	padding: 50px;
+	background-color: white;
+}
