@@ -1,5 +1,5 @@
 .main {
-	min-height: 100vh;
+	min-height: 75vh;
 }
 
 .header {
@@ -7,7 +7,7 @@
 	justify-content: space-between;
 	flex-wrap: wrap;
 	padding: 20px 0;
-	border-bottom: 2px #333 solid;
+	border-bottom: 2px #ccc solid;
 }
 
 .headingLeft {
