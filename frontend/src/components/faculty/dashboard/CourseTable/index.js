@@ -26,6 +26,7 @@ const CourseTable = (props) => {
 						</td>
 						<td className={styles.courseNameCellData}>
 							{course.courseName}
+							<br /> (Credits: {course.credits})
 						</td>
 						<td className={styles.departmentCellData}>
 							{course.department}

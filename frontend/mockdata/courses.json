@@ -7,7 +7,8 @@
 		"addedBy": "Dr.John Doe",
 		"addedOn": "20.02.2022",
 		"minCap": 60,
-		"maxCap": 150
+		"maxCap": 150,
+		"credits": 3
 	},
 	{
 		"id": "2",
@@ -17,7 +18,8 @@
 		"addedBy": "Dr.Jane Doe",
 		"addedOn": "20.02.2022",
 		"minCap": 70,
-		"maxCap": 120
+		"maxCap": 120,
+		"credits": 2
 	},
 	{
 		"id": "3",
@@ -27,6 +29,7 @@
 		"addedBy": "Dr.Jane Smith",
 		"addedOn": "22.02.2022",
 		"minCap": 90,
-		"maxCap": 160
+		"maxCap": 160,
+		"credits": 3
 	}
 ]
