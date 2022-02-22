@@ -3,11 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import ControlBar from "../../../src/components/faculty/dashboard/ControlBar";
 import AddCourseModal from "../../../src/components/faculty/dashboard/AddCourseModal";
+import CourseTable from "../../../src/components/faculty/dashboard/CourseTable";
 import styles from "../../../styles/faculty/dashboard/Home.module.css";
+
+// Mock data
+import mockCourses from "../../../mockdata/courses.json";
 
 import { useState } from "react";
 
-export default function Home() {
+export default function Home(props) {
 	// State variable to switch modal to add course
 	const [showAddCourse, setShowAddCourse] = useState(false);
 
@@ -66,6 +70,13 @@ export default function Home() {
 				) : (
 					""
 				)}
+
+				{/* Table of courses offered */}
+				{props.courses.length > 0 ? (
+					<CourseTable courses={props.courses} />
+				) : (
+					"No Courses on Database"
+				)}
 			</main>
 
 			<footer className={styles.footer}>
@@ -74,4 +85,9 @@ export default function Home() {
 			</footer>
 		</div>
 	);
+}
+
+export async function getServerSideProps() {
+	// To fetch the course data from the Database
+	return { props: { courses: mockCourses } };
 }

@@ -1,0 +1,20 @@
+[
+	{
+		"courseCode": "19CSE311",
+		"courseName": "Computer Security",
+		"department": "CSE",
+		"addedBy": "Dr.John Doe",
+		"addedOn": "20.02.2022",
+		"minCap": 60,
+		"maxCap": 150
+	},
+	{
+		"courseCode": "19CSE312",
+		"courseName": "Distributed Systems",
+		"department": "CSE",
+		"addedBy": "Dr.Jane Doe",
+		"addedOn": "20.02.2022",
+		"minCap": 70,
+		"maxCap": 120
+	}
+]

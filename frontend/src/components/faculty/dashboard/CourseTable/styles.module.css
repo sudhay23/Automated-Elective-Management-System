@@ -1,0 +1,50 @@
+.container {
+	display: flex;
+	margin-top: 5rem;
+	justify-content: center;
+	font-family: "Poppins";
+	font-weight: 100 !important;
+	font-size: 20px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+
+.snoCell,
+.courseCodeCell,
+.courseNameCell,
+.departmentCell,
+.addedByCell,
+.addedOnCell,
+.minCapCell,
+.maxCapCell,
+.actionsCell {
+	border: 1px solid #000000;
+	padding: 10px 20px;
+}
+
+.snoCell {
+	min-width: 110px;
+}
+.courseCodeCell {
+	min-width: 180px;
+}
+.courseNameCell {
+	min-width: 200px;
+}
+.departmentCell {
+	min-width: 180px;
+}
+.addedByCell {
+	min-width: 210px;
+}
+.addedOnCell {
+	min-width: 200px;
+}
+.minCapCell,
+.maxCapCell {
+	min-width: 120px;
+}
+.actionsCell {
+	min-width: 170px;
+}
