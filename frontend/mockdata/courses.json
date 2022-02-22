@@ -1,5 +1,6 @@
 [
 	{
+		"id": "1",
 		"courseCode": "19CSE311",
 		"courseName": "Computer Security",
 		"department": "CSE",
@@ -9,6 +10,7 @@
 		"maxCap": 150
 	},
 	{
+		"id": "2",
 		"courseCode": "19CSE312",
 		"courseName": "Distributed Systems",
 		"department": "CSE",
@@ -16,5 +18,15 @@
 		"addedOn": "20.02.2022",
 		"minCap": 70,
 		"maxCap": 120
+	},
+	{
+		"id": "3",
+		"courseCode": "19CSE314",
+		"courseName": "Software Engineering",
+		"department": "CSE",
+		"addedBy": "Dr.Jane Smith",
+		"addedOn": "22.02.2022",
+		"minCap": 90,
+		"maxCap": 160
 	}
 ]

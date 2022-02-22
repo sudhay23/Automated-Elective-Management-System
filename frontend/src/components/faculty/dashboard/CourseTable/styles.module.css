@@ -3,8 +3,7 @@
 	margin-top: 5rem;
 	justify-content: center;
 	font-family: "Poppins";
-	font-weight: 100 !important;
-	font-size: 20px;
+	font-size: 18px;
 	display: flex;
 	align-items: center;
 	text-align: center;
@@ -20,7 +19,9 @@
 .maxCapCell,
 .actionsCell {
 	border: 1px solid #000000;
+	font-weight: 500;
 	padding: 10px 20px;
+	background: #f0f0f0;
 }
 
 .snoCell {
@@ -47,4 +48,18 @@
 }
 .actionsCell {
 	min-width: 170px;
+}
+
+.snoCellData,
+.courseCodeCellData,
+.courseNameCellData,
+.departmentCellData,
+.addedByCellData,
+.addedOnCellData,
+.minCapCellData,
+.maxCapCellData,
+.actionsCellData {
+	border: 0.7px solid #000000;
+	font-weight: 300;
+	padding: 10px 20px;
 }

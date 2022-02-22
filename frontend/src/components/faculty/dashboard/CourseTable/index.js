@@ -1,6 +1,9 @@
 import styles from "./styles.module.css";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { useState } from "react";
 
 const CourseTable = (props) => {
+	const [courses, setCourses] = useState(props.courses);
 	return (
 		<div className={styles.container}>
 			<table cellSpacing={0}>
@@ -15,6 +18,54 @@ const CourseTable = (props) => {
 					<th className={styles.maxCapCell}>Max.Cap</th>
 					<th className={styles.actionsCell}>Actions</th>
 				</tr>
+				{courses.map((course, idx) => (
+					<tr key={idx}>
+						<td className={styles.snoCellData}>{idx + 1}</td>
+						<td className={styles.courseCodeCellData}>
+							{course.courseCode}
+						</td>
+						<td className={styles.courseNameCellData}>
+							{course.courseName}
+						</td>
+						<td className={styles.departmentCellData}>
+							{course.department}
+						</td>
+						<td className={styles.addedByCellData}>
+							{course.addedBy}
+						</td>
+						<td className={styles.addedOnCellData}>
+							{course.addedOn}
+						</td>
+						<td className={styles.minCapCellData}>
+							{course.minCap}
+						</td>
+						<td className={styles.maxCapCellData}>
+							{course.maxCap}
+						</td>
+						<td className={styles.actionsCellData}>
+							<FaEdit
+								style={{
+									marginRight: 10,
+									fontSize: "20px",
+									cursor: "pointer",
+								}}
+							/>
+							<FaTrash
+								style={{
+									marginLeft: 10,
+									fontSize: "20px",
+									cursor: "pointer",
+								}}
+								onClick={() => {
+									//TODO: Should trigger a DELETE request for DB too
+									setCourses((x) =>
+										x.filter((y) => y.id != course.id)
+									);
+								}}
+							/>
+						</td>
+					</tr>
+				))}
 			</table>
 		</div>
 	);
