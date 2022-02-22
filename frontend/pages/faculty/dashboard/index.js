@@ -12,8 +12,9 @@ import mockCourses from "../../../mockdata/courses.json";
 import { useState } from "react";
 
 export default function Home(props) {
-	// State variable to switch modal to add course
+	// State variable to switch modal to add course and hold courses
 	const [showAddCourse, setShowAddCourse] = useState(false);
+	const [courses, setCourses] = useState(props.courses);
 
 	return (
 		<div className={styles.container}>
@@ -66,14 +67,18 @@ export default function Home(props) {
 
 				{/* Add Course Modal component */}
 				{showAddCourse ? (
-					<AddCourseModal setShowAddCourse={setShowAddCourse} />
+					<AddCourseModal
+						courses={courses}
+						setCourses={setCourses}
+						setShowAddCourse={setShowAddCourse}
+					/>
 				) : (
 					""
 				)}
 
 				{/* Table of courses offered */}
 				{props.courses.length > 0 ? (
-					<CourseTable courses={props.courses} />
+					<CourseTable courses={courses} setCourses={setCourses} />
 				) : (
 					"No Courses on Database"
 				)}

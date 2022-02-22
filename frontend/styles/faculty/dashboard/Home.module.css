@@ -51,6 +51,7 @@
 	flex: 1;
 	padding: 2rem 0;
 	position: static;
+	margin-top: 50px;
 	bottom: 0px;
 	border-top: 1px solid #eaeaea;
 	justify-content: space-between;
