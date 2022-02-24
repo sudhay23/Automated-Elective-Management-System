@@ -1,35 +1,38 @@
 [
-	{
-		"id": "1",
-		"courseCode": "19CSE311",
-		"courseName": "Computer Security",
-		"department": "CSE",
-		"addedBy": "Dr.John Doe",
-		"addedOn": "20.02.2022",
-		"minCap": 60,
-		"maxCap": 150,
-		"credits": 3
-	},
-	{
-		"id": "2",
-		"courseCode": "19CSE312",
-		"courseName": "Distributed Systems",
-		"department": "CSE",
-		"addedBy": "Dr.Jane Doe",
-		"addedOn": "20.02.2022",
-		"minCap": 70,
-		"maxCap": 120,
-		"credits": 2
-	},
-	{
-		"id": "3",
-		"courseCode": "19CSE314",
-		"courseName": "Software Engineering",
-		"department": "CSE",
-		"addedBy": "Dr.Jane Smith",
-		"addedOn": "22.02.2022",
-		"minCap": 90,
-		"maxCap": 160,
-		"credits": 3
-	}
+    {
+        "id": "1",
+        "courseCode": "19CSE311",
+        "courseName": "Computer Security",
+        "department": "CSE",
+        "addedBy": "Dr.John Doe",
+        "addedOn": "20.02.2022",
+        "minCap": 60,
+        "maxCap": 150,
+        "credits": 3,
+        "preRequisites": "19CSE111,19CSE122"
+    },
+    {
+        "id": "2",
+        "courseCode": "19CSE312",
+        "courseName": "Distributed Systems",
+        "department": "CSE",
+        "addedBy": "Dr.Jane Doe",
+        "addedOn": "20.02.2022",
+        "minCap": 70,
+        "maxCap": 120,
+        "credits": 2,
+        "preRequisites": "19CSE333,19CSE222"
+    },
+    {
+        "id": "3",
+        "courseCode": "19CSE314",
+        "courseName": "Software Engineering",
+        "department": "CSE",
+        "addedBy": "Dr.Jane Smith",
+        "addedOn": "22.02.2022",
+        "minCap": 90,
+        "maxCap": 160,
+        "credits": 3,
+        "preRequisites": "19CSE111"
+    }
 ]
