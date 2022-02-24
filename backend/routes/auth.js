@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../model/userRegistrationSchema");
 const bcrypt = require("bcryptjs");
 
+// REGISTER route
 router.post("/register", async (req, res) => {
   // check if user already exists
   const userExists = await User.findOne({ email: req.body.email });
@@ -33,4 +34,19 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// LOGIN route
+router.post("/login", async (req, res) => {
+  // checking if email exists in database
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) return res.status(400).send("Email or password is incorrect");
+  const validPassword = await bcrypt.compare(req.body.password, user.password);
+  if (!validPassword)
+    return res.status(400).send("Email or password is incorrect");
+  res.send({
+    user: user._id,
+    name: user.name,
+    email: user.email,
+    loginTime: user.date,
+  });
+});
 module.exports = router;
