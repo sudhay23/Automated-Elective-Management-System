@@ -9,7 +9,7 @@ import CourseTable from "../../../src/components/faculty/dashboard/CourseTable";
 import styles from "../../../styles/faculty/dashboard/Home.module.css";
 
 // Mock data
-import mockCourses from "../../../mockdata/courses.json";
+// import mockCourses from "../../../mockdata/courses.json";
 
 import { useState, useEffect } from "react";
 
@@ -29,6 +29,19 @@ export default function Home(props) {
             document.body.style.overflow = "unset";
         }
     }, [showAddCourse]);
+    useEffect(async () => {
+        const coursesRes = await fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/faculty/courses`,
+            { credentials: "include" }
+        );
+        // console.log(coursesRes);
+        if (coursesRes.status == 200) {
+            const courses = await coursesRes.json();
+            setCourses(courses);
+        } else {
+            setCourses([]);
+        }
+    }, []);
 
     return (
         <FacultyProtection setLoggedInFaculty={setLoggedInFaculty}>
@@ -92,7 +105,7 @@ export default function Home(props) {
                     )}
 
                     {/* Table of courses offered */}
-                    {props.courses.length > 0 ? (
+                    {courses?.length > 0 ? (
                         <CourseTable
                             courses={courses}
                             setCourses={setCourses}
@@ -109,9 +122,4 @@ export default function Home(props) {
             </div>
         </FacultyProtection>
     );
-}
-
-export async function getServerSideProps() {
-    // To fetch the course data from the Database
-    return { props: { courses: mockCourses } };
 }

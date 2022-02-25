@@ -1,8 +1,10 @@
 import styles from "./styles.module.css";
 import { FaArrowLeft } from "react-icons/fa";
 import { useState, useRef } from "react";
+import { useRouter } from "next/router";
 
 const AddCourseModal = (props) => {
+    const router = useRouter();
     const [courseCode, setCourseCode] = useState("");
     const [courseName, setCourseName] = useState("");
     const [department, setDepartment] = useState("");
@@ -107,18 +109,11 @@ const AddCourseModal = (props) => {
                         type="submit"
                         value="Submit"
                         className={styles.submitBtn}
-                        onClick={(e) => {
+                        onClick={async (e) => {
                             // TODO: Add course on DB
                             e.preventDefault();
                             if (formRef.current.reportValidity()) {
                                 const newCourse = {
-                                    id: (
-                                        parseInt(
-                                            props.courses[
-                                                props.courses.length - 1
-                                            ].id
-                                        ) + 1
-                                    ).toString(),
                                     courseCode,
                                     courseName,
                                     department,
@@ -129,11 +124,31 @@ const AddCourseModal = (props) => {
                                     credits,
                                     preRequisites,
                                 };
+
                                 props.setCourses((courses) => [
                                     ...courses,
                                     newCourse,
                                 ]);
-                                props.setShowAddCourse(false);
+                                fetch(
+                                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/faculty/courses`,
+                                    {
+                                        method: "POST",
+                                        credentials: "include",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify(newCourse),
+                                    }
+                                )
+                                    .then((res) => {
+                                        router.reload();
+                                        // props.setShowAddCourse(false);
+                                    })
+                                    .catch((err) => {
+                                        console.log(
+                                            "Error in saving new course"
+                                        );
+                                    });
                             }
                         }}
                     />

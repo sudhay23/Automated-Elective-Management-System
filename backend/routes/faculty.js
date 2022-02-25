@@ -21,6 +21,7 @@ router.post("/courses", verifyToken, async (req, res) => {
             courseName: req.body.courseName,
             department: req.body.department,
             addedBy: req.body.addedBy,
+            addedOn: req.body.addedOn,
             minCap: req.body.minCap,
             maxCap: req.body.maxCap,
             credits: req.body.credits,

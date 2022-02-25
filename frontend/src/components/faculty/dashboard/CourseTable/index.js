@@ -23,6 +23,7 @@ const CourseTable = (props) => {
                     {props.courses.map((course, idx) => (
                         <tr
                             key={idx}
+                            data-id={course._id}
                             title={`Pre-requisites are ${course.preRequisites}`}
                         >
                             <td className={styles.snoCellData}>{idx + 1}</td>
@@ -40,7 +41,7 @@ const CourseTable = (props) => {
                                 {course.addedBy}
                             </td>
                             <td className={styles.addedOnCellData}>
-                                {course.addedOn}
+                                {new Date(course.addedOn).toLocaleDateString()}
                             </td>
                             <td className={styles.minCapCellData}>
                                 {course.minCap}
@@ -65,7 +66,7 @@ const CourseTable = (props) => {
                                     onClick={() => {
                                         //TODO: Should trigger a DELETE request for DB too
                                         props.setCourses((x) =>
-                                            x.filter((y) => y.id != course.id)
+                                            x.filter((y) => y._id != course._id)
                                         );
                                     }}
                                 />

@@ -10,11 +10,11 @@ function verifyToken(req, res, next) {
             req.user = verified; // we are setting the user to the payload, it contains the user id and the iat
             next();
         } catch (err) {
-            res.status(400).send("Invalid token.");
+            return res.status(400).send("Invalid token.");
         }
     } catch (error) {
-        console.log(error);
-        res.status(400).send("Token not found");
+        // console.log(error);
+        return res.status(400).send("Token not found");
     }
 }
 

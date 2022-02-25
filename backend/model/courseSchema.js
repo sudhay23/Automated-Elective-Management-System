@@ -20,7 +20,6 @@ const courseSchema = new mongoose.Schema({
     addedOn: {
         type: Date,
         required: true,
-        default: Date.now(),
     },
     minCap: {
         type: Number,
