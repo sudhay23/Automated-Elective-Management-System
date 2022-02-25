@@ -15,8 +15,31 @@ export default function Home() {
             </Head>
 
             <main className={styles.main}>
+                <button
+                    onClick={() => {
+                        (async () => {
+                            const authResponse = await fetch(
+                                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/login`,
+                                {
+                                    method: "POST",
+                                    credentials: "include",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({
+                                        email: "sudhay2001@gmail.com",
+                                        password: "12345678",
+                                    }),
+                                }
+                            );
+                            const authorized = await authResponse.json();
+                        })();
+                    }}
+                >
+                    Login
+                </button>
+                <a href="/faculty/dashboard">Go To Dashboard</a>
                 <h1 className={styles.title}>
-                    {process.env.NEXT_PUBLIC_TEST_A}
                     Automated Elective Management - CSE-F
                 </h1>
 

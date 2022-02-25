@@ -14,6 +14,8 @@ import mockCourses from "../../../mockdata/courses.json";
 import { useState, useEffect } from "react";
 
 export default function Home(props) {
+    const [loggedInFaculty, setLoggedInFaculty] = useState(null);
+
     // State variable to switch modal to add course and hold courses
     const [showAddCourse, setShowAddCourse] = useState(false);
     const [courses, setCourses] = useState(props.courses);
@@ -29,7 +31,7 @@ export default function Home(props) {
     }, [showAddCourse]);
 
     return (
-        <FacultyProtection>
+        <FacultyProtection setLoggedInFaculty={setLoggedInFaculty}>
             <div className={styles.container}>
                 <Head>
                     <title>
@@ -75,7 +77,7 @@ export default function Home(props) {
                     {/* Props will have to obtained from Auth service */}
                     <ControlBar
                         setShowAddCourse={setShowAddCourse}
-                        user={{ firstName: "John", lastName: "Doe" }}
+                        user={{ name: loggedInFaculty?.name }}
                     />
 
                     {/* Add Course Modal component */}

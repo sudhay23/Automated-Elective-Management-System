@@ -58,13 +58,49 @@ router.post("/login", async (req, res) => {
     );
 
     // send token in header and user data in body
-    res.header("auth-token", token).send({
+    res.cookie("auth-token", token, {
+        maxAge: "60000",
+    }).send({
         user: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
         loginTime: user.date,
     });
+});
+
+// AUTHORIZE a token route
+router.post("/authorize", (req, res) => {
+    const userToken = req.cookies["auth-token"];
+    if (!userToken) {
+        res.status(401).json({ isAuthorized: false });
+    } else {
+        try {
+            const verification = jwt.verify(
+                userToken,
+                process.env.JWT_TOKEN_SECRET
+            );
+            if (verification) {
+                res.status(200).json({
+                    isAuthorized: {
+                        user: verification._id,
+                        name: verification.name,
+                        email: verification.email,
+                        role: verification.role,
+                    },
+                });
+            } else {
+                res.status(401).json({ isAuthorized: false });
+            }
+        } catch (err) {
+            res.status(401).json({ isAuthorized: false });
+        }
+    }
+});
+
+// LOGOUT Route - TODO
+router.get("/logout", (req, res) => {
+    res.cookie("auth-token", { maxAge: 0 }).send("You have been logged out");
 });
 
 module.exports = router;

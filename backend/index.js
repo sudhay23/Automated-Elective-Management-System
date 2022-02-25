@@ -3,6 +3,8 @@ const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
+const cookies = require("cookie-parser");
+const cors = require("cors");
 // importing routes
 const authRoute = require("./routes/auth");
 const dashboardRoute = require("./routes/dashboard");
@@ -16,6 +18,14 @@ mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true }, () => {
     console.log("connected to mongoDB");
 });
 
+app.use(cookies());
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+        methods: "GET,POST,DELETE,PUT",
+    })
+);
 app.use(express.json());
 
 // Route Middleware
