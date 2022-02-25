@@ -16,6 +16,7 @@ export default function Home() {
 
             <main className={styles.main}>
                 <h1 className={styles.title}>
+                    {process.env.NEXT_PUBLIC_TEST_A}
                     Automated Elective Management - CSE-F
                 </h1>
 
