@@ -17,6 +17,11 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    addedOn: {
+        type: Date,
+        required: true,
+        default: Date.now(),
+    },
     minCap: {
         type: Number,
         required: true,

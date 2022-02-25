@@ -60,6 +60,8 @@ router.post("/login", async (req, res) => {
     // send token in header and user data in body
     res.cookie("auth-token", token, {
         maxAge: "60000",
+        sameSite: "none",
+        secure: true,
     }).send({
         user: user._id,
         name: user.name,
@@ -100,7 +102,9 @@ router.post("/authorize", (req, res) => {
 
 // LOGOUT Route
 router.post("/logout", (req, res) => {
-    res.clearCookie("auth-token").send("You have been logged out");
+    res.clearCookie("auth-token", { sameSite: "none", secure: true }).send(
+        "You have been logged out"
+    );
 });
 
 module.exports = router;
