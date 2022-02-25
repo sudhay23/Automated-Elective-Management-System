@@ -24,7 +24,7 @@ app.use(
     cors({
         origin: [
             "http://localhost:3000",
-            "https://automated-elective-management-system.vercel.app/",
+            "https://automated-elective-management-system.vercel.app",
         ],
         credentials: true,
         methods: "GET,POST,DELETE,PUT",
