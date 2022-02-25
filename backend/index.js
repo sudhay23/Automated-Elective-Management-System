@@ -8,6 +8,7 @@ const cors = require("cors");
 // importing routes
 const authRoute = require("./routes/auth");
 const dashboardRoute = require("./routes/dashboard");
+const facultyRoute = require("./routes/faculty");
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use(express.json());
 
 // Route Middleware
 app.use("/api/user", authRoute);
+app.use("/api/faculty", facultyRoute);
 app.use("/dashboard", dashboardRoute);
 
 app.listen(port, () => {
