@@ -17,11 +17,14 @@ const ControlBar = (props) => {
                 </div>
                 <button
                     className={styles.logoutBtn}
-                    onClick={() => {
-                        // TODO
-                        // Clear the cookie containing Auth token by resetting expiry to past
-                        fetch(
-                            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/logout`
+                    onClick={async () => {
+                        // Clear the cookie containing Auth token
+                        await fetch(
+                            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/logout`,
+                            {
+                                method: "POST",
+                                credentials: "include",
+                            }
                         ).then((response) => {
                             router.replace("/");
                         });

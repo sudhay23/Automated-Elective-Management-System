@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 const FacultyProtection = (props) => {
     const [auth, setAuth] = useState(null);
+    const router = useRouter();
 
     // Authorize with the JWT
     useEffect(() => {
@@ -20,10 +21,11 @@ const FacultyProtection = (props) => {
             if (authorized.isAuthorized) {
                 props.setLoggedInFaculty(authorized.isAuthorized);
             }
-            if (authorized.isAuthorized.role == "faculty") {
+            if (authorized.isAuthorized.role === "faculty") {
                 setAuth(authorized.isAuthorized);
             } else {
                 setAuth(false);
+                setTimeout(() => router.replace("/"), 3000);
             }
         })();
     }, []);
@@ -70,7 +72,17 @@ const FacultyProtection = (props) => {
                         </title>
                         <link rel="icon" href="/favicon.ico" />
                     </Head>
-                    <h1>Access Denied</h1>
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <h1>Access Denied</h1>
+                        <h3>Redirecting to Home in 3 seconds</h3>
+                    </div>
                 </div>
             ) : (
                 props.children

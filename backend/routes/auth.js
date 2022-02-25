@@ -98,9 +98,9 @@ router.post("/authorize", (req, res) => {
     }
 });
 
-// LOGOUT Route - TODO
-router.get("/logout", (req, res) => {
-    res.cookie("auth-token", { maxAge: 0 }).send("You have been logged out");
+// LOGOUT Route
+router.post("/logout", (req, res) => {
+    res.clearCookie("auth-token").send("You have been logged out");
 });
 
 module.exports = router;

@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -38,7 +39,9 @@ export default function Home() {
                 >
                     Login
                 </button>
-                <a href="/faculty/dashboard">Go To Dashboard</a>
+                <Link href="/faculty/dashboard">
+                    <a>Go To Dashboard</a>
+                </Link>
                 <h1 className={styles.title}>
                     Automated Elective Management - CSE-F
                 </h1>
