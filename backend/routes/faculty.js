@@ -39,4 +39,20 @@ router.post("/courses", verifyToken, async (req, res) => {
     }
 });
 
+// Delete course
+router.delete("/course/:id", verifyToken, async (req, res) => {
+    if (req.user.role === "faculty") {
+        try {
+            const deleteStatus = await Course.findByIdAndDelete(req.params.id);
+            res.send(
+                `Successfully deleted the course with ID ${deleteStatus._id}`
+            );
+        } catch (error) {
+            res.status(500).send("An error occurred in deleting the course");
+        }
+    } else {
+        res.status(403).send("You are not authorized to do this");
+    }
+});
+
 module.exports = router;

@@ -110,7 +110,6 @@ const AddCourseModal = (props) => {
                         value="Submit"
                         className={styles.submitBtn}
                         onClick={async (e) => {
-                            // TODO: Add course on DB
                             e.preventDefault();
                             if (formRef.current.reportValidity()) {
                                 const newCourse = {

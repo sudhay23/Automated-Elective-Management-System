@@ -1,8 +1,10 @@
 import styles from "./styles.module.css";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const CourseTable = (props) => {
+    const router = useRouter();
     return (
         <div className={styles.container}>
             <table cellSpacing={0}>
@@ -64,10 +66,24 @@ const CourseTable = (props) => {
                                         cursor: "pointer",
                                     }}
                                     onClick={() => {
-                                        //TODO: Should trigger a DELETE request for DB too
                                         props.setCourses((x) =>
                                             x.filter((y) => y._id != course._id)
                                         );
+                                        fetch(
+                                            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/faculty/course/${course._id}`,
+                                            {
+                                                method: "DELETE",
+                                                credentials: "include",
+                                            }
+                                        )
+                                            .then((res) => {
+                                                router.reload();
+                                            })
+                                            .catch((err) => {
+                                                console.log(
+                                                    "Error in deleting the course"
+                                                );
+                                            });
                                     }}
                                 />
                             </td>
