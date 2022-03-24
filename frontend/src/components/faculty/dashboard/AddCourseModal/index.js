@@ -152,13 +152,36 @@ const AddCourseModal = (props) => {
                                     preRequisites,
                                 };
 
-                                props.setCourses((courses) => [
-                                    ...courses,
-                                    newCourse,
-                                ]);
                                 if (props.updateCourse) {
                                     // Update Mode
+                                    fetch(
+                                        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/faculty/course/${props.updateCourse._id}`,
+                                        {
+                                            method: "PUT",
+                                            credentials: "include",
+                                            headers: {
+                                                "Content-Type":
+                                                    "application/json",
+                                            },
+                                            body: JSON.stringify({
+                                                updatedCourse: newCourse,
+                                            }),
+                                        }
+                                    )
+                                        .then((res) => {
+                                            router.reload();
+                                            // props.setShowAddCourse(false);
+                                        })
+                                        .catch((err) => {
+                                            console.log(
+                                                "Error in saving new course"
+                                            );
+                                        });
                                 } else {
+                                    props.setCourses((courses) => [
+                                        ...courses,
+                                        newCourse,
+                                    ]);
                                     // Create Mode
                                     fetch(
                                         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/faculty/courses`,
