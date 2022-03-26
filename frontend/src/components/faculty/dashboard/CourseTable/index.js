@@ -58,6 +58,10 @@ const CourseTable = (props) => {
                                         fontSize: "20px",
                                         cursor: "pointer",
                                     }}
+                                    onClick={() => {
+                                        props.setUpdateCourse(course);
+                                        props.setShowAddCourse(true);
+                                    }}
                                 />
                                 <FaTrash
                                     style={{

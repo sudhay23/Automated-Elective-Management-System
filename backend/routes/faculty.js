@@ -55,4 +55,23 @@ router.delete("/course/:id", verifyToken, async (req, res) => {
     }
 });
 
+// Update Course
+router.put("/course/:id", verifyToken, async (req, res) => {
+    if (req.user.role === "faculty") {
+        try {
+            const updateStatus = await Course.findByIdAndUpdate(
+                req.params.id,
+                req.body.updatedCourse
+            );
+            res.send(
+                `Successfully updated the course with ID ${updateStatus._id}`
+            );
+        } catch (error) {
+            res.status(500).send("An error occurred in updating the course");
+        }
+    } else {
+        res.status(403).send("You are not authorized to do this");
+    }
+});
+
 module.exports = router;

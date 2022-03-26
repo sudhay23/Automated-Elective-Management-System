@@ -20,6 +20,9 @@ export default function Home(props) {
     const [showAddCourse, setShowAddCourse] = useState(false);
     const [courses, setCourses] = useState(props.courses);
 
+    // State variable to decide if AddCourse Form is in UPDATE mode
+    const [updateCourse, setUpdateCourse] = useState(null);
+
     // Hide or show scrollbar on modal shown
     useEffect(() => {
         if (showAddCourse) {
@@ -99,6 +102,8 @@ export default function Home(props) {
                             courses={courses}
                             setCourses={setCourses}
                             setShowAddCourse={setShowAddCourse}
+                            updateCourse={updateCourse}
+                            setUpdateCourse={setUpdateCourse}
                         />
                     ) : (
                         ""
@@ -109,6 +114,8 @@ export default function Home(props) {
                         <CourseTable
                             courses={courses}
                             setCourses={setCourses}
+                            setUpdateCourse={setUpdateCourse}
+                            setShowAddCourse={setShowAddCourse}
                         />
                     ) : (
                         "No Courses on Database"
