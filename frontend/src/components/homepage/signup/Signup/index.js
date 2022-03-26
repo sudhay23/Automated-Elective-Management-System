@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styles from "./styles.module.css";
 import Link from "next/link";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Signup = () => {
   const [data, setData] = useState({
     name: "",
@@ -25,17 +26,36 @@ const Signup = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.error) {
-          console.log("error");
-          setError(res.error);
-        } else {
-          console.log(res);
+    }).then((res) => {
+      if (res.status == 409) {
+        toast.warn("Email already registered, sign in", {
+          position: "bottom-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        console.log("User already exists");
+        setError(res.error);
+      } else {
+        res.json();
+        console.log(res);
+        toast.success("🦄 Successfully Registered!", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setInterval(() => {
           location.assign("/");
-        }
-      });
+        }, 2200);
+      }
+    });
   };
 
   return (
@@ -97,6 +117,28 @@ const Signup = () => {
             <button type="submit" className={styles.green_btn}>
               Sign Up
             </button>
+            <ToastContainer
+              position="bottom-center"
+              autoClose={2000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+            <ToastContainer
+              position="top-center"
+              autoClose={2000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
           </form>
         </div>
       </div>

@@ -10,7 +10,7 @@ router.post("/register", async (req, res) => {
   const userExists = await User.findOne({ email: req.body.email });
   if (userExists) {
     console.log("user already exists");
-    return res.status(400).send("User already exists, please login");
+    return res.status(409).send("User already exists, please login");
   }
 
   // hash the password
@@ -48,12 +48,12 @@ router.post("/login", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
     console.log("invalid credentials");
-    return res.status(401).send("Email or password is incorrect");
+    return res.status(401).send({ error: "Invalid credentials" });
   }
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) {
     console.log("invalid credentials");
-    return res.status(401).send("Email or password is incorrect");
+    return res.status(401).send({ error: "Invalid credentials" });
   }
 
   // create and assin a token to the user
@@ -72,12 +72,15 @@ router.post("/login", async (req, res) => {
       sameSite: "none",
       secure: true,
     })
+    .setHeader("Redirect", "/" + user.role + "/dashboard")
     .send({
       user: user._id,
       name: user.name,
       email: user.email,
       role: user.role,
       loginTime: user.date,
+      Redirect: "/" + user.role + "/dashboard",
+      error: "None",
     });
 });
 

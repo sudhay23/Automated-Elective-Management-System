@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styles from "./styles.module.css";
 import Link from "next/link";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
@@ -20,15 +22,31 @@ const Login = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then((res) => {
-      if (res.status == 401) {
-        location.assign("/signup");
-      } else {
-        res.json();
-        console.log(res);
-        location.assign("/faculty/dashboard");
-      }
-    });
+    })
+      .then((res) => {
+        if (res.status == 401) {
+          const notify = () =>
+            toast.error("Invaild Credentials", {
+              position: "bottom-center",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          notify();
+          // return res.json();
+        }
+        return res.json();
+      })
+      .then((res) => {
+        if (res.error === "None") {
+          location.assign(res.Redirect);
+        } else {
+          console.log(res.error);
+        }
+      });
   };
 
   return (
@@ -63,6 +81,17 @@ const Login = () => {
             <button type="submit" className={styles.green_btn}>
               Sign In
             </button>
+            <ToastContainer
+              position="bottom-center"
+              autoClose={2000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
           </form>
         </div>
         <div className={styles.right}>

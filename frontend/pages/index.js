@@ -14,32 +14,6 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <button
-          onClick={() => {
-            (async () => {
-              const authResponse = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/login`,
-                {
-                  method: "POST",
-                  credentials: "include",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    email: "testUser@gmail.com",
-                    password: "1234",
-                  }),
-                }
-              );
-              const authorized = await authResponse.json();
-            })();
-          }}
-        >
-          Login
-        </button>
-        <Link href="/faculty/dashboard">
-          <a>Go To Dashboard</a>
-        </Link>
         <h1 className={styles.title}>Automated Elective Management - CSE-F</h1>
         <Login />
       </main>
