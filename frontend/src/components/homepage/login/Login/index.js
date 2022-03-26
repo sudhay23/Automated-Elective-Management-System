@@ -12,27 +12,34 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const url = "http://localhost:4567/api/user/login";
-      const { data: res } = await axios.post(url, data);
-      localStorage.setItem("token", res.data);
-      window.location = "/";
-    } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
-        setError(error.response.data.message);
+    console.log("handleSubmit");
+    fetch("http://localhost:4567/api/user/login", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((res) => {
+      if (res.status == 401) {
+        location.assign("/signup");
+      } else {
+        res.json();
+        console.log(res);
+        location.assign("/faculty/dashboard");
       }
-    }
+    });
   };
 
   return (
     <div className={styles.login_container}>
       <div className={styles.login_form_container}>
         <div className={styles.left}>
-          <form className={styles.form_container} onSubmit={handleSubmit}>
+          <form
+            className={styles.form_container}
+            onSubmit={handleSubmit}
+            method="POST"
+          >
             <h1>Login to Your Account</h1>
             <input
               type="email"
@@ -54,7 +61,7 @@ const Login = () => {
             />
             {error && <div className={styles.error_msg}>{error}</div>}
             <button type="submit" className={styles.green_btn}>
-              Sing In
+              Sign In
             </button>
           </form>
         </div>
@@ -62,7 +69,7 @@ const Login = () => {
           <h1>New Here ?</h1>
           <Link href="/signup">
             <button type="button" className={styles.white_btn}>
-              Sing Up
+              Sign Up
             </button>
           </Link>
         </div>

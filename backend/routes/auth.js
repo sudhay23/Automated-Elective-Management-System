@@ -46,10 +46,15 @@ router.post("/login", async (req, res) => {
   // checking if email exists in database
   console.log(req.body);
   const user = await User.findOne({ email: req.body.email });
-  if (!user) return res.status(400).send("Email or password is incorrect");
+  if (!user) {
+    console.log("invalid credentials");
+    return res.status(401).send("Email or password is incorrect");
+  }
   const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPassword)
-    return res.status(400).send("Email or password is incorrect");
+  if (!validPassword) {
+    console.log("invalid credentials");
+    return res.status(401).send("Email or password is incorrect");
+  }
 
   // create and assin a token to the user
   const token = jwt.sign(
