@@ -10,7 +10,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - run: |
-                  curl -s https://automated-elective-management-system.vercel.app/ | grep Sandeep || curl -X POST https://api.twilio.com/2010-04-01/Accounts/$TWILIO_ACCOUNT_SID/Calls.json \
+                  curl -s https://automated-elective-management-system.vercel.app/ | grep Automated || curl -X POST https://api.twilio.com/2010-04-01/Accounts/$TWILIO_ACCOUNT_SID/Calls.json \
                   --data-urlencode "Twiml=<Response><Say>Hey there. Message from Site Health Check. It looks like your website is down. Have a look at https://automated-elective-management-system.vercel.app/. Thank you</Say></Response>" \
                   --data-urlencode "To=$TO_PHONE" \
                   --data-urlencode "From=$FROM_PHONE" \
