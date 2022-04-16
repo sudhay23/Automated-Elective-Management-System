@@ -17,7 +17,8 @@
 .addedOnCell,
 .minCapCell,
 .maxCapCell,
-.actionsCell {
+.actionsCell,
+.reorderCell {
 	border: 1px solid #000000;
 	font-weight: 500;
 	padding: 10px 20px;
@@ -46,7 +47,8 @@
 .maxCapCell {
 	min-width: 120px;
 }
-.actionsCell {
+.actionsCell,
+.reorderCell {
 	min-width: 170px;
 }
 
@@ -58,6 +60,7 @@
 .addedOnCellData,
 .minCapCellData,
 .maxCapCellData,
+.reorderCellData,
 .actionsCellData {
 	border: 0.7px solid #000000;
 	font-weight: 300;

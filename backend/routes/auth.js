@@ -64,13 +64,15 @@ router.post("/login", async (req, res) => {
 		{ _id: user._id, email: user.email, name: user.name, role: user.role },
 		process.env.JWT_TOKEN_SECRET,
 		{
-			expiresIn: "60s",
+			// expiresIn: "60s", //TODO- Change back to 60s
+			expiresIn: "5m",
 		}
 	);
 
 	// send token in header and user data in body
 	res.cookie("auth-token", token, {
-		maxAge: "60000",
+		// maxAge: "60000", //TODO- Change back to 60000
+		maxAge: "300000",
 		sameSite: "none",
 		secure: true,
 	}).send({
