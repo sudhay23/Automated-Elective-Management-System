@@ -1,13 +1,13 @@
 .container {
-	display: flex;
-	flex-direction: column;
-	margin-top: 5rem;
-	justify-content: center;
-	font-family: "Poppins";
-	font-size: 18px;
-	display: flex;
-	align-items: center;
-	text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+    justify-content: center;
+    font-family: "Poppins";
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }
 
 .snoCell,
@@ -20,37 +20,37 @@
 .maxCapCell,
 .actionsCell,
 .reorderCell {
-	border: 1px solid #000000;
-	font-weight: 500;
-	padding: 10px 20px;
-	background: #f0f0f0;
+    border: 1px solid #000000;
+    font-weight: 500;
+    padding: 10px 20px;
+    background: #f0f0f0;
 }
 
 .snoCell {
-	min-width: 110px;
+    min-width: 110px;
 }
 .courseCodeCell {
-	min-width: 180px;
+    min-width: 180px;
 }
 .courseNameCell {
-	min-width: 200px;
+    min-width: 200px;
 }
 .departmentCell {
-	min-width: 180px;
+    min-width: 180px;
 }
 .addedByCell {
-	min-width: 210px;
+    min-width: 210px;
 }
 .addedOnCell {
-	min-width: 200px;
+    min-width: 200px;
 }
 .minCapCell,
 .maxCapCell {
-	min-width: 120px;
+    min-width: 120px;
 }
 .actionsCell,
 .reorderCell {
-	min-width: 170px;
+    min-width: 170px;
 }
 
 .snoCellData,
@@ -63,7 +63,12 @@
 .maxCapCellData,
 .reorderCellData,
 .actionsCellData {
-	border: 0.7px solid #000000;
-	font-weight: 300;
-	padding: 10px 20px;
+    border: 0.7px solid #000000;
+    font-weight: 300;
+    padding: 10px 20px;
+}
+
+.ineligibleCourseRow {
+    background: #353525;
+    color: #c5bdbd;
 }
