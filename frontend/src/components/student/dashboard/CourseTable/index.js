@@ -1,9 +1,17 @@
 import styles from "./styles.module.css";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
-import { useState } from "react";
+import FreezeBtn from "../FreezeBtn";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 const CourseTable = (props) => {
+	const [eligibleCourses, setEligibleCourses] = useState([]);
+	const [ineligibleCourses, setIneligibleCourses] = useState([]);
+
+	useEffect(() => {
+		setEligibleCourses(props.courses.map((course) => {}));
+	}, []);
+
 	const pushCourseUp = (currIdx) => {
 		if (currIdx != 0) {
 			let newPrefs = Array.from(props.courses);
@@ -53,7 +61,8 @@ const CourseTable = (props) => {
 							</td>
 							<td className={styles.courseNameCellData}>
 								{course.courseName}
-								<br /> (Credits: {course.credits})
+								<br /> (Credits: {course.credits} - Min CGPA:{" "}
+								{course.minCGPA})
 							</td>
 							<td className={styles.departmentCellData}>
 								{course.department}
@@ -100,6 +109,7 @@ const CourseTable = (props) => {
 					))}
 				</tbody>
 			</table>
+			<FreezeBtn />
 		</div>
 	);
 };
