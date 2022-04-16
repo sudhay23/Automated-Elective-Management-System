@@ -28,7 +28,6 @@ router.post("/courses", verifyToken, async (req, res) => {
 			minCGPA: req.body.minCGPA,
 			preRequisites: req.body.preRequisites,
 		});
-		console.log(newCourse);
 		try {
 			const savedCourse = await newCourse.save();
 			res.send(savedCourse);
