@@ -9,7 +9,7 @@ const CourseTable = (props) => {
 	const [ineligibleCourses, setIneligibleCourses] = useState([]);
 
 	useEffect(() => {
-		setEligibleCourses(props.courses.map((course) => {}));
+		setEligibleCourses(props.courses.filter((course) => {}));
 	}, []);
 
 	const pushCourseUp = (currIdx) => {
