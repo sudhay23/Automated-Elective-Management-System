@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
 const roundOnePrefsSchema = new mongoose.Schema({
-    email: {
+    studentEmail: {
         type: String,
         required: true,
     },
-    userId:{
-        type:String,
-        required:true
+    userId: {
+        type: String,
+        required: true,
     },
     coursePreferences: {
         type: [String],

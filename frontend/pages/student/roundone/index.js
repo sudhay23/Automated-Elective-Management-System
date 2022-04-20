@@ -1,3 +1,4 @@
+import { Oval } from "react-loader-spinner";
 import StudentProtection from "../../../layouts/StudentProtection";
 import Head from "next/head";
 import Image from "next/image";
@@ -12,6 +13,8 @@ import styles from "../../../styles/faculty/dashboard/Home.module.css";
 import { useState, useEffect } from "react";
 
 export default function RoundOne(props) {
+    const [roundOneAllowed, setRoundOneAllowed] = useState(null);
+
     const [loggedInStudent, setLoggedInStudent] = useState(null);
 
     // State variable to switch modal to add course and hold courses
@@ -32,6 +35,23 @@ export default function RoundOne(props) {
             setCourses([]);
         }
     }, []);
+
+    // Check if this user is allowed to proceed in Round 1
+    useEffect(() => {
+        console.log(loggedInStudent);
+        if (loggedInStudent) {
+            fetch(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/student/status/roundone/${loggedInStudent.user}`,
+                {
+                    credentials: "include",
+                }
+            )
+                .then((response) => response.json())
+                .then((data) => {
+                    setRoundOneAllowed(data.roundOneAllowed);
+                });
+        }
+    }, [loggedInStudent]);
 
     return (
         <StudentProtection setLoggedInStudent={setLoggedInStudent}>
@@ -57,18 +77,53 @@ export default function RoundOne(props) {
                     </div>
                 </header>
                 <main className={styles.main}>
-                    {/* Props will have to obtained from Auth service */}
-                    <ControlBar user={{ name: loggedInStudent?.name }} />
+                    {roundOneAllowed == null ? (
+                        <div
+                            style={{
+                                height: "60vh",
+                                width: "100%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Head>
+                                <title>
+                                    Checking Status... | Automating Elective
+                                    Processing
+                                </title>
+                                <link rel="icon" href="/favicon.ico" />
+                            </Head>
+                            <Oval
+                                height="100"
+                                width="100"
+                                color="green"
+                                ariaLabel="loading"
+                            />
+                        </div>
+                    ) : roundOneAllowed ? (
+                        <>
+                            {/* Props will have to obtained from Auth service */}
+                            <ControlBar
+                                user={{ name: loggedInStudent?.name }}
+                            />
 
-                    {/* Table of courses offered */}
-                    {courses?.length > 0 ? (
-                        <CourseTable
-                            courses={courses}
-                            setCourses={setCourses}
-                            user={loggedInStudent}
-                        />
+                            {/* Table of courses offered */}
+                            {courses?.length > 0 ? (
+                                <CourseTable
+                                    courses={courses}
+                                    setCourses={setCourses}
+                                    user={loggedInStudent}
+                                />
+                            ) : (
+                                "No Courses on Database"
+                            )}
+                        </>
                     ) : (
-                        "No Courses on Database"
+                        <h4>
+                            Round one already done | "TODO" - Show saved
+                            preferences
+                        </h4>
                     )}
                 </main>
 

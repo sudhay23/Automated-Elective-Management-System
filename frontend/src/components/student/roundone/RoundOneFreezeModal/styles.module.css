@@ -14,7 +14,7 @@
     transition: all 0.3s;
 }
 
-.addCourseForm {
+.confirmationArea {
     min-height: 70%;
     min-width: 40%;
     border-radius: 40px;
@@ -22,42 +22,43 @@
     background-color: white;
 }
 
-.formContent {
+.formHeader {
     display: flex;
-    margin-top: 20px;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
 }
 
-.inputField {
-    background: #f1f1f1;
-    border: 1px solid #949494;
-    box-sizing: border-box;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-family: Poppins;
-    font-size: 18px;
-    font-weight: 300;
-    margin: 6px initial;
-    width: 70%;
-    color: rgba(0, 0, 0, 0.6);
+.notice {
+    flex-grow: 1;
+    width: 600px;
+    padding: 20px 20px 0 20px;
 }
 
-.submitBtn {
-    margin-top: 20px;
-    background: rgba(80, 160, 43, 0.97);
+.preferencesList {
+    list-style-type: none;
+}
+
+.preferencesItem {
+    font-size: 18px;
+    padding: 2px 0;
+    font-weight: 700;
+}
+
+.freezeBtn {
+    background: rgba(34, 188, 9, 0.7);
     border: 1px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    transition: all 0.25s;
-    cursor: pointer;
-    height: 45px;
-    padding: initial 30px;
+    padding: 5px 10px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
     font-size: 18px;
-    color: white;
+    color: #ffffff;
+    transition: all 0.25s ease;
+    cursor: pointer;
 }
-
-.submitBtn:hover {
-    background: rgba(101, 216, 47, 0.97);
-    transition: all 0.25s;
+.freezeBtn:hover {
+    background: rgba(34, 188, 9, 0.945);
+    transition: all 0.25s ease;
 }
