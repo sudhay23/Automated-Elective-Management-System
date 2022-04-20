@@ -14,10 +14,7 @@ const RoundOneFreezeModal = (props) => {
                     <FaArrowLeft
                         style={{ cursor: "pointer", fontSize: 28 }}
                         onClick={() => {
-                            props.setShowAddCourse((x) => !x);
-                            if (props.updateCourse) {
-                                props.setUpdateCourse(null);
-                            }
+                            props.setShowFreezeConfirm((x) => !x);
                         }}
                     />
                 </div>
@@ -26,4 +23,4 @@ const RoundOneFreezeModal = (props) => {
     );
 };
 
-export default AddCourseModal;
+export default RoundOneFreezeModal;

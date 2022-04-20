@@ -1,6 +1,7 @@
 import styles from "./styles.module.css";
 import { useState } from "react";
 import freezeRoundOne from "../../../../utils/student/freezeRoundOne";
+import RoundOneFreezeModal from "../RoundOneFreezeModal";
 
 const FreezeBtn = (props) => {
     const [showFreezeConfirm, setShowFreezeConfirm] = useState(false);
@@ -9,7 +10,10 @@ const FreezeBtn = (props) => {
         <div className={styles.container}>
             {/* Freeze preferences modal */}
             {showFreezeConfirm ? (
-                <RoundOneFreezeModal coursePrefs={coursePrefs} />
+                <RoundOneFreezeModal
+                    setShowFreezeConfirm={setShowFreezeConfirm}
+                    coursePrefs={coursePrefs}
+                />
             ) : (
                 <></>
             )}
