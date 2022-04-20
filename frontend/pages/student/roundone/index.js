@@ -1,9 +1,9 @@
 import StudentProtection from "../../../layouts/StudentProtection";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
-import ControlBar from "../../../src/components/student/dashboard/ControlBar";
 import NavBar from "../../../src/components/student/NavBar";
+import ControlBar from "../../../src/components/student/dashboard/ControlBar";
+import CourseTable from "../../../src/components/student/dashboard/CourseTable";
 import styles from "../../../styles/faculty/dashboard/Home.module.css";
 
 // Mock data
@@ -11,16 +11,33 @@ import styles from "../../../styles/faculty/dashboard/Home.module.css";
 
 import { useState, useEffect } from "react";
 
-export default function Home(props) {
+export default function RoundOne(props) {
     const [loggedInStudent, setLoggedInStudent] = useState(null);
+
+    // State variable to switch modal to add course and hold courses
+    const [courses, setCourses] = useState(props.courses);
+
+    // State variable to decide if AddCourse Form is in UPDATE mode
+
+    useEffect(async () => {
+        const coursesRes = await fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/student/courses`,
+            { credentials: "include" }
+        );
+        // console.log(coursesRes);
+        if (coursesRes.status == 200) {
+            const courses = await coursesRes.json();
+            setCourses(courses);
+        } else {
+            setCourses([]);
+        }
+    }, []);
 
     return (
         <StudentProtection setLoggedInStudent={setLoggedInStudent}>
             <div className={styles.container}>
                 <Head>
-                    <title>
-                        Student Dashboard | Automating Elective Processing
-                    </title>
+                    <title>Round One | Automating Elective Processing</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
 
@@ -33,7 +50,7 @@ export default function Home(props) {
                             width={300}
                             height={100}
                         />
-                        <h2 className={styles.pageTitle}>Student Dashboard</h2>
+                        <h2 className={styles.pageTitle}>Round One</h2>
                     </div>
                     <div className={styles.headingRight}>
                         <NavBar />
@@ -43,13 +60,16 @@ export default function Home(props) {
                     {/* Props will have to obtained from Auth service */}
                     <ControlBar user={{ name: loggedInStudent?.name }} />
 
-                    <Link href="/student/roundone">
-                        <a>Round One</a>
-                    </Link>
-                    <br />
-                    <Link href="/student/roundtwo">
-                        <a>Round Two</a>
-                    </Link>
+                    {/* Table of courses offered */}
+                    {courses?.length > 0 ? (
+                        <CourseTable
+                            courses={courses}
+                            setCourses={setCourses}
+                            user={loggedInStudent}
+                        />
+                    ) : (
+                        "No Courses on Database"
+                    )}
                 </main>
 
                 <footer className={styles.footer}>
