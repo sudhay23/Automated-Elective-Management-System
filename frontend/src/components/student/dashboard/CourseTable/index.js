@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
-import FreezeBtn from "../FreezeBtn";
+import FreezeBtn from "../../roundone/FreezeBtn";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -152,7 +152,7 @@ const CourseTable = (props) => {
                     ))}
                 </tbody>
             </table>
-            <FreezeBtn />
+            <FreezeBtn coursePrefs={eligibleCourses} studentObj={props.user} />
         </div>
     );
 };

@@ -5,6 +5,10 @@ const roundOnePrefsSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    userId:{
+        type:String,
+        required:true
+    },
     coursePreferences: {
         type: [String],
         required: true,
