@@ -62,4 +62,32 @@ router.post("/freeze/roundone", verifyToken, async (req, res) => {
         });
 });
 
+// Get preference list of student
+router.get("/preflist/:roundNum/:userId", verifyToken, async (req, res) => {
+    const stuId = req.params.userId;
+    const roundNum = req.params.roundNum;
+
+    if (roundNum.toString() == "1") {
+        const studentPrefs = await RoundOnePrefs.findOne({ userId: stuId });
+        try {
+            if (studentPrefs) {
+                res.json({
+                    data: studentPrefs,
+                    flag: 0, //Something has been set in preferences
+                });
+            } else {
+                res.status(500).json({
+                    data: "Not Frozen for Round 1",
+                    flag: 1, //Nothing frozen for Round 1 yet
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Server Error Occurred...");
+        }
+    } else if (roundNum.toString() == "2") {
+        // TODO for Round 2
+    }
+});
+
 module.exports = router;

@@ -5,7 +5,7 @@ import Image from "next/image";
 import NavBar from "../../../src/components/student/NavBar";
 import ControlBar from "../../../src/components/student/dashboard/ControlBar";
 import CourseTable from "../../../src/components/student/dashboard/CourseTable";
-import styles from "../../../styles/faculty/dashboard/Home.module.css";
+import styles from "../../../styles/student/roundone/RoundOne.module.css";
 
 // Mock data
 // import mockCourses from "../../../mockdata/courses.json";
@@ -14,8 +14,8 @@ import { useState, useEffect } from "react";
 
 export default function RoundOne(props) {
     const [roundOneAllowed, setRoundOneAllowed] = useState(null);
-
     const [loggedInStudent, setLoggedInStudent] = useState(null);
+    const [frozenPreferences, setFrozenPreferences] = useState(null);
 
     // State variable to switch modal to add course and hold courses
     const [courses, setCourses] = useState(props.courses);
@@ -38,7 +38,7 @@ export default function RoundOne(props) {
 
     // Check if this user is allowed to proceed in Round 1
     useEffect(() => {
-        console.log(loggedInStudent);
+        // console.log(loggedInStudent);
         if (loggedInStudent) {
             fetch(
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/student/status/roundone/${loggedInStudent.user}`,
@@ -48,10 +48,49 @@ export default function RoundOne(props) {
             )
                 .then((response) => response.json())
                 .then((data) => {
+                    if (data.roundOneAllowed == true) {
+                        setFrozenPreferences([]);
+                    }
                     setRoundOneAllowed(data.roundOneAllowed);
                 });
         }
     }, [loggedInStudent]);
+
+    // If the student is already done with round 1, show the frozen preferences
+    useEffect(async () => {
+        if (roundOneAllowed === false) {
+            // Find preference ID list
+            const response1 = await fetch(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/student/preflist/1/${loggedInStudent.user}`,
+                {
+                    method: "GET",
+                    credentials: "include",
+                }
+            );
+            const data1 = await response1.json();
+            if (response1.ok && data1.flag == 0) {
+                // TODO-Find the corresponding Courses to IDs
+                const response2 = await fetch(
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/course/fromIds/`,
+                    {
+                        method: "POST",
+                        credentials: "include",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            idArr: data1.data.coursePreferences,
+                        }),
+                    }
+                );
+                const data2 = await response2.json();
+                setFrozenPreferences(data2.courseArr);
+            } else {
+                setFrozenPreferences([]);
+                return;
+            }
+        }
+    }, [roundOneAllowed]);
 
     return (
         <StudentProtection setLoggedInStudent={setLoggedInStudent}>
@@ -77,7 +116,7 @@ export default function RoundOne(props) {
                     </div>
                 </header>
                 <main className={styles.main}>
-                    {roundOneAllowed == null ? (
+                    {roundOneAllowed == null || frozenPreferences == null ? (
                         <div
                             style={{
                                 height: "60vh",
@@ -120,10 +159,21 @@ export default function RoundOne(props) {
                             )}
                         </>
                     ) : (
-                        <h4>
-                            Round one already done | "TODO" - Show saved
-                            preferences
-                        </h4>
+                        // Already Frozen Preferences
+                        <div className={styles.preferences}>
+                            <ul className={styles.preferencesList}>
+                                {frozenPreferences.map((coursePref, idx) => (
+                                    <li
+                                        key={idx}
+                                        className={styles.preferencesItem}
+                                    >
+                                        {idx + 1}. {coursePref.courseName}{" "}
+                                        (Credits: {coursePref.credits};
+                                        Min.CGPA: {coursePref.minCGPA})
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     )}
                 </main>
 

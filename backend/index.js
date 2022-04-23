@@ -10,6 +10,7 @@ const authRoute = require("./routes/auth");
 const dashboardRoute = require("./routes/dashboard");
 const facultyRoute = require("./routes/faculty");
 const studentRoute = require("./routes/student");
+const courseRoute = require("./routes/course");
 
 dotenv.config();
 
@@ -17,19 +18,19 @@ const port = process.env.PORT || 5000;
 
 // connect to mongoDB
 mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true }, () => {
-	console.log("connected to mongoDB");
+    console.log("connected to mongoDB");
 });
 
 app.use(cookies());
 app.use(
-	cors({
-		origin: [
-			"http://localhost:3000",
-			"https://automated-elective-management-system.vercel.app",
-		],
-		credentials: true,
-		methods: "GET,POST,DELETE,PUT",
-	})
+    cors({
+        origin: [
+            "http://localhost:3000",
+            "https://automated-elective-management-system.vercel.app",
+        ],
+        credentials: true,
+        methods: "GET,POST,DELETE,PUT",
+    })
 );
 app.use(express.json());
 
@@ -37,8 +38,9 @@ app.use(express.json());
 app.use("/api/user", authRoute);
 app.use("/api/faculty", facultyRoute);
 app.use("/api/student", studentRoute);
+app.use("/api/course", courseRoute);
 app.use("/dashboard", dashboardRoute);
 
 app.listen(port, () => {
-	console.log("Server is running at http://localhost:" + port);
+    console.log("Server is running at http://localhost:" + port);
 });
