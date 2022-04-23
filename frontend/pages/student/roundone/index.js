@@ -144,7 +144,10 @@ export default function RoundOne(props) {
                         <>
                             {/* Props will have to obtained from Auth service */}
                             <ControlBar
-                                user={{ name: loggedInStudent?.name }}
+                                user={{
+                                    name: loggedInStudent?.name,
+                                    cgpa: loggedInStudent?.cgpa,
+                                }}
                             />
 
                             {/* Table of courses offered */}
