@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ControlBar from "../../../src/components/student/dashboard/ControlBar";
 import NavBar from "../../../src/components/student/NavBar";
-import styles from "../../../styles/faculty/dashboard/Home.module.css";
+import styles from "../../../styles/student/dashboard/Home.module.css";
 
 // Mock data
 // import mockCourses from "../../../mockdata/courses.json";
@@ -41,15 +41,25 @@ export default function Home(props) {
                 </header>
                 <main className={styles.main}>
                     {/* Props will have to obtained from Auth service */}
-                    <ControlBar user={{ name: loggedInStudent?.name }} />
-
-                    <Link href="/student/roundone">
-                        <a>Round One</a>
-                    </Link>
-                    <br />
-                    <Link href="/student/roundtwo">
-                        <a>Round Two</a>
-                    </Link>
+                    <ControlBar
+                        user={{
+                            name: loggedInStudent?.name,
+                            cgpa: loggedInStudent?.cgpa,
+                        }}
+                    />
+                    <div className={styles.roundNavigator}>
+                        <Link href="/student/roundone">
+                            <a className={styles.roundBtn}>
+                                Goto <strong>Round 1</strong>
+                            </a>
+                        </Link>
+                        <br />
+                        <Link href="/student/roundtwo">
+                            <a className={styles.roundBtn}>
+                                Goto <strong>Round 2</strong>
+                            </a>
+                        </Link>
+                    </div>
                 </main>
 
                 <footer className={styles.footer}>

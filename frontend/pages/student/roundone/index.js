@@ -161,15 +161,24 @@ export default function RoundOne(props) {
                     ) : (
                         // Already Frozen Preferences
                         <div className={styles.preferences}>
+                            <h2 style={{ margin: 0 }}>
+                                You have already frozen the following courses
+                            </h2>
+                            <h3>
+                                Frozen number of courses:{" "}
+                                {frozenPreferences.length}
+                            </h3>
+                            <br />
                             <ul className={styles.preferencesList}>
                                 {frozenPreferences.map((coursePref, idx) => (
                                     <li
                                         key={idx}
                                         className={styles.preferencesItem}
                                     >
-                                        {idx + 1}. {coursePref.courseName}{" "}
-                                        (Credits: {coursePref.credits};
-                                        Min.CGPA: {coursePref.minCGPA})
+                                        {idx + 1}. {coursePref.courseCode} -{" "}
+                                        {coursePref.courseName} (Credits:{" "}
+                                        {coursePref.credits}; Min.CGPA:{" "}
+                                        {coursePref.minCGPA})
                                     </li>
                                 ))}
                             </ul>

@@ -33,6 +33,11 @@ const ControlBar = (props) => {
                 </button>
             </div>
             <div>
+                <div className={styles.cgpaMsg}>
+                    Your CGPA: <strong>{props.user?.cgpa}</strong>
+                </div>
+            </div>
+            <div>
                 <div className={styles.currTime}>
                     Current Time:{" "}
                     <strong>

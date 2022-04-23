@@ -59,22 +59,25 @@
     padding: 30px 40px;
 }
 
-/* For Frozen Preferences - Round 1*/
-.preferences {
+/* Round Navigator */
+.roundNavigator {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    flex-direction: column;
     align-items: center;
-    margin-top: 50px;
+    flex-direction: column;
 }
 
-.preferencesList {
-    list-style-type: none;
-}
-
-.preferencesItem {
-    font-size: 18px;
-    padding: 2px 0;
+.roundBtn {
+    font-size: 20px;
     font-weight: 600;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.4s;
+}
+.roundBtn:hover {
+    color: white;
+    background-color: #444;
+    transition: all 0.4s;
 }

@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 // REGISTER route
 router.post("/register", async (req, res) => {
     // check if user already exists
-    console.log(req.body.email);
     const userExists = await User.findOne({ email: req.body.email });
     if (userExists) {
         console.log("user already exists");
@@ -28,7 +27,6 @@ router.post("/register", async (req, res) => {
     });
     try {
         const savedUser = await user.save();
-        console.log(savedUser);
         res.status(200).send({
             user: user._id,
             name: user.name,
@@ -46,7 +44,6 @@ router.post("/register", async (req, res) => {
 // LOGIN route
 router.post("/login", async (req, res) => {
     // checking if email exists in database
-    console.log(req.body);
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
         console.log("invalid credentials");
@@ -97,7 +94,6 @@ router.post("/login", async (req, res) => {
 // AUTHORIZE a token route
 router.post("/authorize", (req, res) => {
     const userToken = req.cookies["auth-token"];
-    console.log(req.body);
 
     if (!userToken) {
         res.status(401).json({ isAuthorized: false });
