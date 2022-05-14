@@ -6,7 +6,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"test": "jest --watch"
+		"test": "jest --watchAll"
 	},
 	"dependencies": {
 		"framer-motion": "^6.2.8",
