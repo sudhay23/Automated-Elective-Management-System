@@ -33,7 +33,7 @@ const ControlBar = (props) => {
                 </button>
             </div>
             <div>
-                <div className={styles.cgpaMsg}>
+                <div data-testid="cgpa" className={styles.cgpaMsg}>
                     Your CGPA: <strong>{props.user?.cgpa}</strong>
                 </div>
             </div>
