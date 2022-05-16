@@ -13,7 +13,7 @@
 .courseCodeCell,
 .courseNameCell,
 .departmentCell,
-.addedByCell,
+.filledSlotsCell,
 .addedOnCell,
 .minCapCell,
 .maxCapCell,
@@ -36,7 +36,7 @@
 .departmentCell {
 	min-width: 180px;
 }
-.addedByCell {
+.filledSlotsCell {
 	min-width: 210px;
 }
 .addedOnCell {
@@ -54,7 +54,7 @@
 .courseCodeCellData,
 .courseNameCellData,
 .departmentCellData,
-.addedByCellData,
+.filledSlotsCellData,
 .addedOnCellData,
 .minCapCellData,
 .maxCapCellData,

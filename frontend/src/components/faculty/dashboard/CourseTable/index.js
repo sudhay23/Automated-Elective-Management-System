@@ -14,7 +14,7 @@ const CourseTable = (props) => {
 						<th className={styles.courseCodeCell}>Course Code</th>
 						<th className={styles.courseNameCell}>Course Name</th>
 						<th className={styles.departmentCell}>Department</th>
-						<th className={styles.addedByCell}>Added By</th>
+						<th className={styles.filledSlotsCell}>Filled Slots</th>
 						<th className={styles.addedOnCell}>Added On</th>
 						<th className={styles.minCapCell}>Min.Cap</th>
 						<th className={styles.maxCapCell}>Max.Cap</th>
@@ -40,8 +40,8 @@ const CourseTable = (props) => {
 							<td className={styles.departmentCellData}>
 								{course.department}
 							</td>
-							<td className={styles.addedByCellData}>
-								{course.addedBy}
+							<td className={styles.filledSlotsCellData}>
+								{course.filledSlots}
 							</td>
 							<td className={styles.addedOnCellData}>
 								{new Date(course.addedOn).toLocaleDateString()}
