@@ -107,4 +107,22 @@ router.get("/systemstatus", verifyToken, async (req, res) => {
   }
 });
 
+// route to get the elective preference
+router.get("/electedpreference/:userId", verifyToken, async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const user = await User.findById(userId);
+    console.log(user);
+    // get the course name from the course id
+    const course = await Course.findById(user.electiveAssigned);
+    res.send({
+      electivePreference: course.courseName,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .send("An error occurred in getting the elective preference");
+  }
+});
+
 module.exports = router;
