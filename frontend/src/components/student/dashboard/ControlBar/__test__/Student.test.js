@@ -10,15 +10,9 @@ describe("Control Bar", () => {
 		expect(headingelement).toBeInTheDocument();
 	});
 
-    test("CGPA is present", () => {
-		render(<Student />);
-		const headingelement=screen.getByText(/Your CGPA/i);
-		expect(headingelement).toBeInTheDocument();
-	});
 
 
-
-    test("CGPA is present", () => {
+    test("hello is present", () => {
 		render(<Student />);
 		const headingelement=screen.getByText(/Hello/i);
 		expect(headingelement).toBeInTheDocument();
