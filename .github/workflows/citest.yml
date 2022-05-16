@@ -14,11 +14,9 @@ jobs:
         with:
           node-version: 12
        
-      # Move to frontend
-      - run: cd frontend
+      - working-directory: ./frontend
+        run: |
+          npm install
+          npm test
       
-      # Install dependencies
-      - run: npm install
-
-      # Run tests
-      - run: npm test
+      
