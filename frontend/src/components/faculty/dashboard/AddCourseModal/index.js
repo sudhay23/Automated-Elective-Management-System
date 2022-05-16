@@ -146,7 +146,7 @@ const AddCourseModal = (props) => {
                             setPreRequisites(e.target.value);
                         }}
                     />
-                    <input
+                    <input data-testid="submit-button"
                         type="submit"
                         value="Submit"
                         className={styles.submitBtn}
