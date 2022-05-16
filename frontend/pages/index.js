@@ -14,7 +14,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Automated Elective Management - CSE-F</h1>
+        <h1 className={styles.title} data-testid="header">Automated Elective Management - CSE-F</h1>
         <Login />
       </main>
     </div>
