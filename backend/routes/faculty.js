@@ -2,7 +2,7 @@ const router = require("express").Router();
 const mongoose = require("mongoose");
 const Course = require("../model/courseSchema");
 const verifyToken = require("./middleware/verifyToken");
-const systemStatusSchema = "../model/systemStatusSchema";
+const SystemStatusSchema = require("../model/systemStatusSchema");
 
 // Get List of Courses
 router.get("/courses", verifyToken, async (req, res) => {
@@ -71,6 +71,39 @@ router.put("/course/:id", verifyToken, async (req, res) => {
   }
 });
 
-//
+//update system status
+router.put("/roundone/status", verifyToken, async (req, res) => {
+  if (req.user.role === "faculty") {
+    try {
+      const updateStatus = await SystemStatusSchema.findByIdAndUpdate(
+        "628207fb3f68930477de3391",
+        {
+          roundOneActive: req.body.roundOneActive,
+        }
+      );
+      res.send({ roundOneActive: req.body.roundOneActive });
+    } catch (error) {
+      res.status(500).send("An error occurred in updating the system status");
+    }
+  } else {
+    res.status(403).send("You are not authorized to do this");
+  }
+});
+
+// Get current system status
+router.get("/systemstatus", verifyToken, async (req, res) => {
+  if (req.user.role == "faculty") {
+    try {
+      const status = await SystemStatusSchema.findById(
+        "628207fb3f68930477de3391"
+      );
+      res.send(status);
+    } catch (error) {
+      res.status(500).send("An error occurred in getting the system status");
+    }
+  } else {
+    res.status(403).send("You are not authorized to do this");
+  }
+});
 
 module.exports = router;

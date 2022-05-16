@@ -5,13 +5,29 @@ import Switch from "../../../src/components/faculty/switch";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styles from "../../../styles/faculty/dashboard/Home.module.css";
 
 import ControlBar from "../../../src/components/faculty/roundone/ControlBar";
 
-export default function Home(props) {
+export default function RoundOne(props) {
   const [loggedInFaculty, setLoggedInFaculty] = useState(null);
-  const [value, setValue] = useState(false);
+  const [roundOneStatus, setRoundOneStatus] = useState(null);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/faculty/systemstatus`, {
+      credentials: "include",
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setRoundOneStatus(data.roundOneActive);
+      });
+  }, []);
+
   return (
     <FacultyProtection setLoggedInFaculty={setLoggedInFaculty}>
       <div className={styles.container}>
@@ -56,28 +72,35 @@ export default function Home(props) {
         <main className={styles.main}>
           <ControlBar user={{ name: loggedInFaculty?.name }} />
           <div className={styles.main}>
-            <Switch
-              isOn={value}
-              onColor="#009900"
-              handleToggle={async () => {
-                const response = await fetch(
-                  `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/faculty/roundone/status`,
-                  {
-                    method: "POST",
-                    credentials: "include",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      roundOneStatus: value ? "off" : "on",
-                    }),
-                  }
-                );
-                const data = await response.json();
-                console.log(data);
-                setValue(!value);
-              }}
-            />{" "}
+            {roundOneStatus != null ? (
+              <Switch
+                isOn={roundOneStatus}
+                onColor="#009900"
+                handleToggle={async () => {
+                  const response = fetch(
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/faculty/roundone/status`,
+                    {
+                      method: "PUT",
+                      credentials: "include",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        roundOneActive: roundOneStatus ? false : true,
+                      }),
+                    }
+                  )
+                    .then((data) => {
+                      return data.json();
+                    })
+                    .then((val) => {
+                      setRoundOneStatus(val.roundOneActive);
+                    });
+                }}
+              />
+            ) : (
+              <></>
+            )}{" "}
           </div>
         </main>
 
