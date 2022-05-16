@@ -58,3 +58,81 @@
 	align-items: center;
 	padding: 30px 40px;
 }
+
+.controlContainer {
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	padding: 30px 450px;
+}
+
+.toggleContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.toggleNotice {
+	font-family: "Poppins";
+	font-size: 18px;
+}
+
+/* Publish Round 1 Btn */
+.publishRoundOne {
+	display: flex;
+	align-items: center;
+}
+
+.publishRoundOneBtn {
+	background: rgba(12, 188, 9, 0.7);
+	border: 1px solid #000000;
+	box-sizing: border-box;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+	padding: 10px 30px;
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 17px;
+	max-width: 300px;
+	color: #ffffff;
+	transition: all 0.25s ease;
+	cursor: pointer;
+}
+.publishRoundOneBtn:hover {
+	background: rgba(34, 188, 9, 0.945);
+	transition: all 0.25s ease;
+}
+.publishRoundOneBtn:disabled {
+	background: rgba(175, 235, 166, 0.945);
+	transition: all 0.25s ease;
+	color: #000000;
+	cursor: not-allowed;
+}
+
+/* View Students Btn */
+.gotoViewStudents {
+	display: flex;
+	align-items: center;
+}
+
+.gotoViewStudentsBtn {
+	background: rgba(6, 147, 105, 0.7);
+	border: 1px solid #000000;
+	box-sizing: border-box;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+	padding: 10px 30px;
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 17px;
+	color: #ffffff;
+	transition: all 0.25s ease;
+	cursor: pointer;
+}
+.gotoViewStudentsBtn:hover {
+	background: rgba(9, 188, 134, 0.858);
+	transition: all 0.25s ease;
+}
