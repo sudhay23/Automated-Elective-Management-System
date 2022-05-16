@@ -133,7 +133,8 @@ router.get("/process/roundone", verifyToken, async (req, res) => {
               roundOne[i].userId
             );
             // update roundOneStatus with course id
-            user.roundOneStatus = course._id;
+            user.roundOneStatus = "COMPLETED";
+            user.electiveAssigned = course._id;
             // update roundTwoStatus to not available
             user.roundTwoStatus = "NOT-AVAILABLE";
             // save the user
