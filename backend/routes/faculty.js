@@ -144,9 +144,9 @@ router.get("/process/roundone", verifyToken, async (req, res) => {
         }
       }
     }
-    res.send("Round One Processed");
+    res.send({ message: "Round One Processed" });
   } else {
-    res.status(403).send("You are not authorized to do this");
+    res.status(403).send({ message: "You are not authorized to do this" });
   }
 });
 

@@ -107,6 +107,10 @@ export default function RoundOne(props) {
                         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/faculty/process/roundone`,
                         {
                           credentials: "include",
+                          headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                          },
                         }
                       )
                         .then((res) => {
@@ -114,6 +118,9 @@ export default function RoundOne(props) {
                         })
                         .then((data) => {
                           console.log(data);
+                        })
+                        .catch((err) => {
+                          console.log(err);
                         });
                     }}
                   >
