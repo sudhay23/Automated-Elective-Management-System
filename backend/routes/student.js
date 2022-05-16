@@ -5,6 +5,7 @@ const User = require("../model/userRegistrationSchema");
 const RoundOnePrefs = require("../model/roundOnePrefs");
 const verifyToken = require("./middleware/verifyToken");
 const SystemStatusSchema = require("../model/systemStatusSchema");
+const { route } = require("./course");
 
 // Get List of Courses
 router.get("/courses", verifyToken, async (req, res) => {
@@ -122,6 +123,25 @@ router.get("/electedpreference/:userId", verifyToken, async (req, res) => {
     res
       .status(500)
       .send("An error occurred in getting the elective preference");
+  }
+});
+
+// route to check if user is eligible for round 2
+router.get("/roundtwo/:userId", verifyToken, async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const user = await User.findById(userId);
+    if (user.roundTwoStatus == "PENDING") {
+      res.send({
+        roundTwoAllowed: true,
+      });
+    } else {
+      res.send({
+        roundTwoAllowed: false,
+      });
+    }
+  } catch (error) {
+    res.status(500).send("An error occurred in getting the round 2 status");
   }
 });
 

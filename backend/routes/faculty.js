@@ -119,92 +119,110 @@ router.get("/process/roundone", verifyToken, async (req, res) => {
     // loop through each element in the array and loop through each coursePreferences
     for (let i = 0; i < roundOne.length; i++) {
       let flag = false;
-
-      if (roundOne[i].coursePreferences.length > 0) {
-        for (let j = 0; j < roundOne[i].coursePreferences.length; j++) {
-          // for the course, check if filledslots is less than maxCap
-          const course = await Course.findById(
-            roundOne[i].coursePreferences[j]
-          );
-          if (course.filledSlots < course.maxCap) {
-            // if it is less than maxCap, then add 1 to the filledSlots
-            course.filledSlots++;
-            // save the course
-            await course.save();
-            // for the particular user, go to user and find the user by id
-            const user = await userRegistrationSchema.findById(
-              roundOne[i].userId
+      const user = await userRegistrationSchema.findById(roundOne[i].userId);
+      if (user.electiveAssigned == "NONE") {
+        if (roundOne[i].coursePreferences.length > 0) {
+          for (let j = 0; j < roundOne[i].coursePreferences.length; j++) {
+            // for the course, check if filledslots is less than maxCap
+            const course = await Course.findById(
+              roundOne[i].coursePreferences[j]
             );
-            // update roundOneStatus with course id
-            user.roundOneStatus = "COMPLETED";
-            user.electiveAssigned = course._id;
-            // update roundTwoStatus to not available
-            user.roundTwoStatus = "NOT-AVAILABLE";
-            // save the user
-            await user.save();
-            flag = true;
-            break;
+            if (course.filledSlots < course.maxCap) {
+              // if it is less than maxCap, then add 1 to the filledSlots
+              course.filledSlots++;
+              // save the course
+              await course.save();
+              // for the particular user, go to user and find the user by id
+              const user = await userRegistrationSchema.findById(
+                roundOne[i].userId
+              );
+              // update roundOneStatus with course id
+              user.roundOneStatus = "COMPLETED";
+              user.electiveAssigned = course._id;
+              // update roundTwoStatus to not available
+              user.roundTwoStatus = "NOT-AVAILABLE";
+              // save the user
+              await user.save();
+              flag = true;
+              break;
+            }
           }
         }
       }
       if (!flag) {
         const user = await userRegistrationSchema.findById(roundOne[i].userId);
         user.roundOneStatus = "COMPLETED";
+        user.roundTwoStatus = "PENDING";
         await user.save();
       }
     }
-    res.send({ message: "Round One Processed" });
+    // update round number
+    const status = await SystemStatusSchema.findById(
+      "628207fb3f68930477de3391"
+    );
+    status.roundNumber++;
+    await status.save();
+    res.send({ message: "Round  Processed" });
   } else {
     res.status(403).send({ message: "You are not authorized to do this" });
   }
 });
 
-// route for round two
-router.get("/process/roundtwo", verifyToken, async (req, res) => {
-  if (req.user.role == "faculty") {
-    const roundTwo = await roundTwoPrefs.find();
-    // sort the preds by timestamp
-    roundTwo.sort((a, b) => {
-      return a.timestamp - b.timestamp;
-    });
-    // loop through each element in the array and loop through each coursePreferences
-    for (let i = 0; i < roundTwo.length; i++) {
-      let flag = false;
+// // route for round two
+// router.get("/process/roundtwo", verifyToken, async (req, res) => {
+//   if (req.user.role == "faculty") {
+//     const roundTwo = await roundTwoPrefs.find();
+//     // sort the preds by timestamp
+//     roundTwo.sort((a, b) => {
+//       return a.timestamp - b.timestamp;
+//     });
+//     // loop through each element in the array and loop through each coursePreferences
+//     for (let i = 0; i < roundTwo.length; i++) {
+//       let flag = false;
 
-      if (roundTwo[i].coursePreferences.length > 0) {
-        for (let j = 0; j < roundTwo[i].coursePreferences.length; j++) {
-          // for the course, check if filledslots is less than maxCap
-          const course = await Course.findById(
-            roundTwo[i].coursePreferences[j]
-          );
-          if (course.filledSlots < course.maxCap) {
-            // if it is less than maxCap, then add 1 to the filledSlots
-            course.filledSlots++;
-            // save the course
-            await course.save();
-            // for the particular user, go to user and find the user by id
-            const user = await userRegistrationSchema.findById(
-              roundTwo[i].userId
-            );
-            // update roundOneStatus with course id
-            user.roundTwoStatus = "COMPLETED";
-            user.electiveAssigned = course._id;
-            // update roundTwoStatus to not available
-            user.roundTwoStatus = "NOT-AVAILABLE";
-            // save the user
-            await user.save();
-            flag = true;
-            break;
-          }
-        }
-      }
-      if (!flag) {
-        const user = await userRegistrationSchema.findById(roundTwo[i].userId);
-        user.roundTwoStatus = "COMPLETED";
-        await user.save();
-      }
-    }
-    res.send({ message: "Round Two Processed" });
+//       if (roundTwo[i].coursePreferences.length > 0) {
+//         for (let j = 0; j < roundTwo[i].coursePreferences.length; j++) {
+//           // for the course, check if filledslots is less than maxCap
+//           const course = await Course.findById(
+//             roundTwo[i].coursePreferences[j]
+//           );
+//           if (course.filledSlots < course.maxCap) {
+//             // if it is less than maxCap, then add 1 to the filledSlots
+//             course.filledSlots++;
+//             // save the course
+//             await course.save();
+//             // for the particular user, go to user and find the user by id
+//             const user = await userRegistrationSchema.findById(
+//               roundTwo[i].userId
+//             );
+//             // update roundOneStatus with course id
+//             user.roundTwoStatus = "COMPLETED";
+//             user.electiveAssigned = course._id;
+//             // update roundTwoStatus to not available
+//             user.roundTwoStatus = "NOT-AVAILABLE";
+//             // save the user
+//             await user.save();
+//             flag = true;
+//             break;
+//           }
+//         }
+//       }
+//       if (!flag) {
+//         const user = await userRegistrationSchema.findById(roundTwo[i].userId);
+//         user.roundTwoStatus = "COMPLETED";
+//         await user.save();
+//       }
+//     }
+//     res.send({ message: "Round Two Processed" });
+//   } else {
+//     res.status(403).send({ message: "You are not authorized to do this" });
+//   }
+// });
+
+router.get("/process/getRoundNumber", verifyToken, async (req, res) => {
+  if (req.user.role == "faculty") {
+    const systemstatus = await SystemStatusSchema.find();
+    res.send({ roundNumber: systemstatus[0].roundNumber });
   } else {
     res.status(403).send({ message: "You are not authorized to do this" });
   }
