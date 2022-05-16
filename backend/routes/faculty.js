@@ -17,6 +17,22 @@ router.get("/courses", verifyToken, async (req, res) => {
   }
 });
 
+// Get A course from MongoDB ID
+router.get("/courses/:id", verifyToken, async (req, res) => {
+  if (req.user.role == "faculty") {
+    const course = await Course.findById(req.params.id);
+    res.send(course);
+  } else {
+    res.status(403).send("You are not authorized to do this");
+  }
+});
+
+// Get Student Preferences Allocated so far
+router.get("/electiveassigned", verifyToken, async (req, res) => {
+  const students = await userRegistrationSchema.find({ role: "student" });
+  res.send(students);
+});
+
 // Add Course
 router.post("/courses", verifyToken, async (req, res) => {
   if (req.user.role == "faculty") {
