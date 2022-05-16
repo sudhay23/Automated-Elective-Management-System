@@ -136,3 +136,61 @@
 	background: rgba(9, 188, 134, 0.858);
 	transition: all 0.25s ease;
 }
+
+/* view students table */
+
+
+.snoCell,
+.courseCodeCell,
+.courseNameCell,
+.departmentCell,
+.addedByCell,
+.addedOnCell,
+.minCapCell,
+.maxCapCell,
+.actionsCell {
+	border: 1px solid #000000;
+	font-weight: 500;
+	padding: 10px 20px;
+	background: #f0f0f0;
+}
+
+.snoCell {
+	min-width: 110px;
+}
+.courseCodeCell {
+	min-width: 180px;
+}
+.courseNameCell {
+	min-width: 200px;
+}
+.departmentCell {
+	min-width: 180px;
+}
+.addedByCell {
+	min-width: 210px;
+}
+.addedOnCell {
+	min-width: 200px;
+}
+.minCapCell,
+.maxCapCell {
+	min-width: 120px;
+}
+.actionsCell {
+	min-width: 170px;
+}
+
+.snoCellData,
+.courseCodeCellData,
+.courseNameCellData,
+.departmentCellData,
+.addedByCellData,
+.addedOnCellData,
+.minCapCellData,
+.maxCapCellData,
+.actionsCellData {
+	border: 0.7px solid #000000;
+	font-weight: 300;
+	padding: 10px 20px;
+}
