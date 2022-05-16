@@ -15,8 +15,11 @@ jobs:
           node-version: 12
        
       - working-directory: ./frontend
-        run: |
-          npm install
-          npm test
+      # Setting up node modules
+      - name: Setup Node
+        run: npm install
+        # Testing Module
+      - name: Setup Node
+        run: npm test
       
       
