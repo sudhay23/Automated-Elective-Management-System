@@ -16,4 +16,15 @@ describe("Control Bar", () => {
 			"Hello, Sudhay"
 		);
 	});
+
+	test("Checks if Logout Button is present", () => {
+		render(<ControlBar />);
+		expect(screen.getByText("Logout")).toBeInTheDocument();
+	});
+
+	test("Checks if Login Button is not present", () => {
+		render(<ControlBar />);
+		expect(screen.queryByText("Login")).not.toBeInTheDocument();
+	});
+
 });
